@@ -1,11 +1,3 @@
-"""Sokoban: Weighted A* theo bai giang, voi mot so cai tien co ban.
-
-Trong slide: BFS, heuristic, A*, Weighted A*, xu ly trang thai lap.
-Bo sung: kiem tra ket thung, ghep thung-dich bang quay lui,
-va tiep tuc cai thien loi giai trong gioi han thoi gian.
-Chi dung thu vien chuan; khong sua framework hay trang thai dau vao.
-"""
-
 from collections import deque
 from heapq import heappop, heappush, heapify
 from itertools import count
@@ -20,11 +12,6 @@ MAX_STATES = 100000
 
 
 def _assignment_cost(costs):
-    """Ghep moi thung voi mot dich rieng bang quay lui + cat nhanh.
-
-    Voi nhieu hon 8 thung/dich, dung tong khoang cach toi dich gan nhat
-    de tranh so nhanh quay lui qua lon. Gia tri nay van la can duoi.
-    """
     if not costs:
         return 0
     if len(costs) > len(costs[0]):
@@ -62,18 +49,10 @@ def _assignment_cost(costs):
 
 
 def _state_key(state):
-    # Robot co kha nang giong nhau: doi ten robot khong tao ban choi moi.
-    # Chi sap xep khoa; vi tri va chi so robot trong state van giu nguyen.
     return tuple(sorted(state.robots)), state.boxes
 
 
 def solve(initial_state, timebound=120):
-    """Tra ve SokobanState dich co parent hop le; chua giai duoc thi False.
-
-    Moi buoc di bo/day deu co gia 1, do framework.successors() gan.
-    Giu loi giai tot nhat va tim tiep neu con thoi gian. Voi trong so > 1
-    hoac khi khoi dong lai do gioi han bo nho, khong hua toi uu.
-    """
     started = perf_counter()
     if timebound <= 0:
         return False
